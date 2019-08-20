@@ -4,6 +4,7 @@ const module3 = require('./module3'); //Referente a tarefa #3
 const module4 = require('./module4'); //Referente a tarefa #4
 const velasquinho = require('./velasquinhoModule'); //Funções gerais
 
+const path = require('path');
 var express = require('express');
 var app = express();
 
@@ -11,7 +12,7 @@ const url_clientes = "http://www.mocky.io/v2/598b16291100004705515ec5";
 const url_compras = "http://www.mocky.io/v2/598b16861100004905515ec7";
 
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 //Compras dos clientes
