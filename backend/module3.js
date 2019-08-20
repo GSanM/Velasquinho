@@ -2,6 +2,7 @@ const module1 = require('./module1'); //Para o comparador
 
 module.exports = {
 
+    //Calcula o nivel de fidelidade do cliente, julgando a quantidade de vezes que ele comprou na loja
     calculaFidelidade: function(compras)
     {
         var clientes = []
@@ -32,6 +33,7 @@ module.exports = {
         return fidelidade;
     },
 
+    //Ordena os clientes baseado no nivel de fidelidade calculado na funcao calculaFidelidade()
     clientesFieis: function(compras)
     {   
         var arr;
