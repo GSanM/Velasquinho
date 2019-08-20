@@ -1,3 +1,0 @@
-1 - Pegar nome clientes
-2 - Criar API
-3 - Documentar
