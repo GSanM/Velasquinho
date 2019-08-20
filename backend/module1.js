@@ -1,3 +1,5 @@
+const velasquinho = require('./velasquinhoModule'); //Para converter CPF <-> Nome
+
 module.exports = {
 
     //Soma valor de compras de cada cliente
@@ -39,7 +41,7 @@ module.exports = {
     },
 
     //Retorna clientes ordenados pelo valor de compra
-    ordenaCompras: function(valores) {
+    ordenaCompras: function(valores, clientes) {
         var arr;
         var clientes_ordenados = {};
 
@@ -49,7 +51,7 @@ module.exports = {
         //Converte novamente em dict para mante padrão key: value
         for(var i = 0; i < arr.length; ++i)
         {
-            clientes_ordenados[arr[i][0]] = arr[i][1];
+            clientes_ordenados[velasquinho.nomeByCPF(clientes, arr[i][0])] = arr[i][1];
         }
 
         return clientes_ordenados;

@@ -1,4 +1,5 @@
 const module1 = require('./module1'); //Para o comparador
+const velasquinho = require('./velasquinhoModule'); //Para converter CPF <-> Nome
 
 module.exports = {
 
@@ -34,12 +35,13 @@ module.exports = {
     },
 
     //Ordena os clientes baseado no nivel de fidelidade calculado na funcao calculaFidelidade()
-    clientesFieis: function(compras)
+    //o nível de fidelidade é uma métrica de quantas vezes o cliente comprou na loja
+    clientesFieis: function(compras, clientes, top=3)
     {   
         var arr;
         var clientes_fieis = {};
         var clientes_fieis_ordenados = {};
-        var fidelidade = calculaFidelidade(compras);
+        var fidelidade = this.calculaFidelidade(compras);
 
         //Cria dict padrão {cliente, nível}
         for(var i = 0; i < compras.length; ++i)
@@ -51,11 +53,11 @@ module.exports = {
         arr = Object.entries(clientes_fieis).sort(module1.comparador);
 
         //Converte novamente em dict para mante padrão key: value
-        for(var i = 0; i < arr.length; ++i)
+        for(var i = 0; i < (top || arr.length); ++i)
         {
-            clientes_fieis_ordenados[arr[i][0]] = arr[i][1];
+            clientes_fieis_ordenados[velasquinho.nomeByCPF(clientes, arr[i][0])] = arr[i][1];
         }
         
-        return clientes_ordenados;
+        return clientes_fieis_ordenados;
     }
 }

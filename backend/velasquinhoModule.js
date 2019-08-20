@@ -31,11 +31,34 @@ module.exports = {
         try {
             const response = await axios.get(url);
             const data = response.data;
-            const corrected = await this.arrumaCPF(data);
-            return corrected;
+            return data;
 
         } catch (error) {
             console.log(error);
         }
+    },
+
+    nomeByCPF: function(clientes, cpf)
+    {
+        for(var i = 0; i < clientes.length; ++i)
+        {
+            if(clientes[i].cpf == cpf)
+                return clientes[i].nome;
+        }
+        console.log("CPF não encontrado");
+        
+        return -1;
+    },
+
+    CPFByNome: function(clientes, nome)
+    {
+        for(var i = 0; i < clientes.length; ++i)
+        {
+            if(clientes[i].nome == nome)
+                return clientes[i].cpf;
+        }
+        console.log("Nome não encontrado");
+        
+        return -1;
     }
 }

@@ -1,8 +1,10 @@
+const velasquinho = require('./velasquinhoModule'); //Para converter CPF <-> Nome
+
 module.exports = {
 
     //Retorna um dict da melhor compra unica do ano 2016 no formato:
     //{cliente, valor, data}
-    maiorCompraUnica2016: function(compras)
+    maiorCompraUnica: function(compras, ano, clientes)
     {
         var cliente;
         var valor;
@@ -11,7 +13,7 @@ module.exports = {
 
         for(var i = 0; i < compras.length; ++i)
         {
-            if(compras[i].data.split('-')[2] == 2016)
+            if(compras[i].data.split('-')[2] == ano)
             {
                 if(compras[i].valorTotal > maior)
                 {
@@ -23,7 +25,7 @@ module.exports = {
             }
         }
 
-        const melhor = {cliente: cliente, valor: valor, data: data};
+        const melhor = {cliente: velasquinho.nomeByCPF(clientes, cliente), cpf: cliente, valor: valor, data: data};
 
         return melhor;
     }

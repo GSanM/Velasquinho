@@ -1,4 +1,5 @@
 const module1 = require('./module1'); //Para o comparador
+const velasquinho = require('./velasquinhoModule'); //Para converter CPF <-> Nome
 
 module.exports = {
     
@@ -80,8 +81,12 @@ module.exports = {
         return counts;
     },
 
-    recomendaVinho: function(sisRec, cliente)
+    //Recomenda um vinho baseado no sistema de recomendação - necessita da lista de clientes para converter
+    //o nome para o CPF
+    recomendaVinho: function(sisRec, cliente, clientes)
     {
+        cliente = velasquinho.CPFByNome(clientes, cliente);
+
         //Vinho mais comprado pelo cliente
         const vinho = Object.entries(sisRec[cliente].vinhos).sort(module1.comparador)[0][0];
         
