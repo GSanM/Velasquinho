@@ -41,12 +41,12 @@ app.get('/clientes_fieis:top?', async function(req, res) {
     res.send(fieis);
 });
 
-app.get('/recomendacao/:cliente', async function(req, res) {
+app.get('/recomendacao/:cliente/:tipo?', async function(req, res) {
     var clientes = await velasquinho.getData(url_clientes);
     var compras = await velasquinho.arrumaCPF(await velasquinho.getData(url_compras));
     var sisRec = await module4.sistemaRecomendacao(compras);
-    var recomendado = await module4.recomendaVinho(sisRec, req.params.cliente, clientes);
-    res.send(recomendado);
+    var recomendado = await module4.recomendaVinho(sisRec, req.params.cliente, clientes, compras, req.params.tipo);
+    res.send("Baseado no seu gosto em vinhos recomendamos: " + recomendado);
 });
 
 app.listen(3000, function () {

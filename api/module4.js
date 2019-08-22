@@ -3,6 +3,45 @@ const velasquinho = require('./velasquinhoModule'); //Para converter CPF <-> Nom
 
 module.exports = {
     
+    criaRecomendacao: function(compras, tipo, gosto)
+    {
+        var vinhos = [];
+
+        for(var i = 0; i < compras.length; ++i)
+        {
+            for(var j = 0; j < compras[i].itens.length; ++j)
+            {
+                if(tipo == 'variedade')
+                {
+                    if(compras[i].itens[j].variedade == gosto)
+                    {
+                        vinhos.push(compras[i].itens[j].produto);
+                    }
+                }
+
+                else if(tipo == 'pais')
+                {
+                    if(compras[i].itens[j].pais == gosto)
+                    {
+                        vinhos.push(compras[i].itens[j].produto);
+                    }
+                }
+
+                else if(tipo == 'categoria')
+                {
+                    if(compras[i].itens[j].categoria == gosto)
+                    {
+                        vinhos.push(compras[i].itens[j].produto);
+                    }
+                }
+            }
+        }
+
+        const vinhosDistintos = [...new Set(vinhos)];
+
+        return vinhosDistintos[Math.floor(Math.random() * vinhosDistintos.length)];
+    },
+    
     //Cria um "sistema" de recomendacao com os dados dos vinhos, variedades, paises e categorias a partir das
     //compras dos clientes
     sistemaRecomendacao: function(compras)
@@ -81,9 +120,9 @@ module.exports = {
         return counts;
     },
 
-    //Recomenda um vinho baseado no sistema de recomendação - necessita da lista de clientes para converter
-    //o nome para o CPF
-    recomendaVinho: function(sisRec, cliente, clientes)
+    //Recomenda um vinho baseado no sistema de recomendação - o que o cliente mais compra de vinhos em categoria, país e variedade
+    // necessita da lista de clientes para converter o nome para o CPF
+    recomendaVinho: function(sisRec, cliente, clientes, compras, tipo='vinho')
     {
         cliente = velasquinho.CPFByNome(clientes, cliente);
 
@@ -101,6 +140,13 @@ module.exports = {
 
         //Em caso de empate (para todos acima) escolhe o primeiro 
 
+        if(tipo == 'variedade')
+            return this.criaRecomendacao(compras, tipo, variedade);
+        else if(tipo == 'pais')
+            return this.criaRecomendacao(compras, tipo, pais);
+        else if(tipo == 'categoria')
+            return this.criaRecomendacao(compras, tipo, categoria);
+        
         return vinho;
     }
 }
